@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Añadir Producto</title>
+    <!-- Importación de Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <!-- Iconos (opcional) -->
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-half">
+                   
+                    <div class="box">
+                        <h1 class="title has-text-centered">Añadir Nuevo Producto</h1>
+                        <hr>
+
+                        <form>
+                            <!-- Código del Producto -->
+                            <div class="field">
+                                <label class="label">Código del Producto</label>
+                                <div class="control has-icons-left">
+                                    <input class="input" type="text" placeholder="Ej: PROD-123">
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-barcode"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Nombre del Producto -->
+                            <div class="field">
+                                <label class="label">Nombre del Producto</label>
+                                <div class="control">
+                                    <input class="input" type="text" placeholder="Ej: Laptop Gaming">
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <!-- Cantidad -->
+                                <div class="column">
+                                    <div class="field">
+                                        <label class="label">Cantidad</label>
+                                        <div class="control">
+                                            <input class="input" type="number" placeholder="0" min="0">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Marca del Producto -->
+                                <div class="column">
+                                    <div class="field">
+                                        <label class="label">Marca</label>
+                                        <div class="control">
+                                            <div class="select is-fullwidth">
+                                                <select>
+                                                    <option>Selecciona una marca</option>
+                                                    <option>Marca A</option>
+                                                    <option>Marca B</option>
+                                                    <option>Marca C</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <!-- Botones de Acción -->
+                            <div class="field is-grouped is-grouped-centered">
+                                <div class="control">
+                                    <button class="button is-link">
+                                        <span class="icon"><i class="fas fa-save"></i></span>
+                                        <span>Guardar Producto</span>
+                                    </button>
+                                </div>
+                                <div class="control">
+                                    <button class="button is-link is-light">Cancelar</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
