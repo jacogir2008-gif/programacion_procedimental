@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
     <title>Menú de Salchipapas - Pedidos</title>
     <style>
-        /* Ajustes visuales */
         .image img { object-fit: cover; height: 100%; border-radius: 8px; }
         .sticky-cart { position: sticky; top: 20px; border-top: 5px solid #ffdd57; }
         .price { color: #d32f2f; font-weight: bold; font-size: 1.1rem; display: block; margin-bottom: 5px; }
@@ -19,7 +18,7 @@
 
     <section class="section">
         <div class="container mt-5">
-            <h1 class="title has-text-centered">🍟 Salchipapa Warrior - Pedidos</h1>
+            <h1 class="title has-text-centered"> Salchipapa Warrior - Pedidos</h1>
             <p class="subtitle has-text-centered mb-6">Elige tu favorita y pídela por WhatsApp</p>
 
             <div class="columns">
@@ -134,7 +133,7 @@
         let pedido = [];
         let total = 0;
 
-        // Función para dar formato de moneda colombiana
+  
         function formatearMoneda(valor) {
             return new Intl.NumberFormat('es-CO', {
                 style: 'currency',
@@ -175,14 +174,14 @@
                 return;
             }
 
-            let mensaje = "🍟 *NUEVO PEDIDO - SALCHIPAPA WARRIOR*\n\n";
+            let mensaje = " *NUEVO PEDIDO - SALCHIPAPA WARRIOR*\n\n";
             pedido.forEach(item => {
                 mensaje += `• ${item.nombre}: ${formatearMoneda(item.precio)}\n`;
             });
-            mensaje += `\n💰 *TOTAL: ${formatearMoneda(total)}*`;
+            mensaje += `\n *TOTAL: ${formatearMoneda(total)}*`;
 
             const encodedMessage = encodeURIComponent(mensaje);
-            // Cambia el número de abajo por el tuyo (con 57 delante)
+            
             window.open(`https://wa.me/573000000000?text=${encodedMessage}`);
         }
     </script>
