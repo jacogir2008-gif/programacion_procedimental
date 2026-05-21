@@ -1,116 +1,249 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
-    <title>Quiénes Somos | Salchiwarrior</title>
-    <style>
-        .hero-custom {
-            background-color: #f5f5f5;
-            border-bottom: 2px solid #eee;
-        }
-        .main-image {
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        .value-card {
-            height: 100%;
-            border-top: 4px solid #ff470f; /* Un color naranja vibrante para el estilo Warrior */
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+
+<title>Quiénes Somos</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.navbar {
+    background: #111;
+}
+.navbar a {
+    color: white;
+}
+.navbar a:hover {
+    color: #ff4d4d;
+}
+
+.hero {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+    url('https://images.unsplash.com/photo-1550547660-d9450f859349');
+    background-size: cover;
+    background-position: center;
+}
+
+.button-custom {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    transition: 0.3s;
+}
+.button-custom:hover {
+    background-color: #ff1a1a;
+    transform: scale(1.05);
+}
+
+/* TARJETAS */
+.card {
+    transition: 0.3s;
+    border-radius: 15px;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.box {
+    transition: 0.3s;
+    border-radius: 12px;
+}
+.box:hover {
+    background-color: #ff4d4d;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* IMAGEN */
+.image img {
+    transition: 0.3s;
+}
+.image img:hover {
+    transform: scale(1.05);
+}
+
+.footer {
+    padding: 2rem;
+}
+</style>
+
 </head>
+
 <body>
 
-    <!-- Encabezado Inspirado en el Estilo Warrior -->
-    <section class="hero hero-custom is-small">
-        <div class="hero-body">
-            <div class="container has-text-centered">
-                <h1 class="title is-1">Salchiwarrior</h1>
-                <p class="subtitle is-4">Más que una salchipapa, una experiencia contundente.</p>
-            </div>
-        </div>
-    </section>
+<nav class="navbar">
+<div class="container">
+<div class="navbar-brand">
+<a class="navbar-item"><strong>Burger House</strong></a>
+</div>
 
-    <section class="section">
-        <div class="container">
-            <div class="columns is-vcentered">
-                
-                <!-- Imagen representativa (Usando tu imagen insignia Warrior) -->
-                <div class="column is-6">
-                    <figure class="image is-square">
-                        <img src="https://img.restaurantguru.com/rae2-meals-SALCHIWARRIOR.jpg" alt="Salchipapa Warrior Insignia" class="main-image">
-                    </figure>
-                </div>
+<div class="navbar-menu">
+<div class="navbar-end">
+<a class="navbar-item">Inicio</a>
+<a class="navbar-item">Menú</a>
+<a class="navbar-item">Contacto</a>
+</div>
+</div>
+</div>
+</nav>
 
-                <!-- Historia basada en tus productos -->
-                <div class="column is-5 is-offset-1">
-                    <h2 class="title is-2">Nuestra Esencia</h2>
-                    <div class="content is-medium">
-                        <p>
-                            En <strong>Salchiwarrior</strong>, nacimos con la idea de transformar la comida urbana tradicional en una propuesta premium. 
-                        </p>
-                        <p>
-                            Desde nuestra <strong>Salchipapa Paisa</strong>, cargada de tradición con chicharrón y hogao, hasta la frescura de nuestra versión <strong>Valluna</strong>, cada plato está diseñado para ofrecer un equilibrio perfecto entre lo crujiente y lo cremoso.
-                        </p>
-                        <p>
-                            Nuestro nombre lo dice todo: somos "Warriors" en la cocina. Nos esforzamos por ofrecer porciones abundantes y carnes seleccionadas que satisfacen hasta al guerrero más hambriento.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- HERO -->
+<section class="hero is-medium">
+<div class="hero-body">
+<div class="container has-text-centered">
+<h1 class="title is-1 has-text-white">
+Quiénes Somos
+</h1>
 
-    <!-- Sección de Pilares (Basada en tus descripciones) -->
-    <section class="section has-background-white-ter">
-        <div class="container">
-            <h3 class="title is-3 has-text-centered mb-6">Lo que nos hace Únicos</h3>
-            <div class="columns">
-                
-                <!-- Pilar 1: Inspiración en la Paisa -->
-                <div class="column">
-                    <div class="card value-card">
-                        <div class="card-content">
-                            <p class="title is-5">Tradición Local</p>
-                            <p>Como nuestra <em>Salchipapa Exclusiva</em>, rescatamos los sabores caseros mezclando ingredientes como el hogao y carnes de primera.</p>
-                        </div>
-                    </div>
-                </div>
+<h2 class="subtitle is-4 has-text-white">
+Pasión por las hamburguesas artesanales 🍔
+</h2>
 
-                <!-- Pilar 2: El estilo Warrior -->
-                <div class="column">
-                    <div class="card value-card">
-                        <div class="card-content">
-                            <p class="title is-5">Estilo Contundente</p>
-                            <p>Creemos en la abundancia. Cada plato es una propuesta intensa y completa para una experiencia gastronómica total.</p>
-                        </div>
-                    </div>
-                </div>
+<button class="button button-custom mt-4">
+Conócenos más
+</button>
+</div>
+</div>
+</section>
 
-                <!-- Pilar 3: Calidad Premium -->
-                <div class="column">
-                    <div class="card value-card">
-                        <div class="card-content">
-                            <p class="title is-5">Salsas Especiales</p>
-                            <p>No usamos salsas comunes. Desarrollamos mezclas que resaltan el sabor de nuestras carnes seleccionadas y papas crujientes.</p>
-                        </div>
-                    </div>
-                </div>
+<section class="section">
+<div class="container">
 
-            </div>
-        </div>
-    </section>
+<div class="columns is-vcentered">
 
-    <footer class="footer">
-        <div class="content has-text-centered">
-            <p>
-                <strong>Salchiwarrior</strong> - El plato insignia de la casa. 
-                <br>
-                <em>Tradición, sabor y contundencia en cada bocado.</em>
-            </p>
-        </div>
-    </footer>
+<div class="column is-half">
+
+<h2 class="title is-2">Nuestra Historia</h2>
+
+<p class="mb-4">
+Somos un restaurante especializado en hamburguesas urbanas,
+creado con el objetivo de ofrecer experiencias únicas.
+</p>
+
+<p class="mb-4">
+Cada hamburguesa está hecha con ingredientes frescos,
+carnes jugosas y recetas originales.
+</p>
+
+<p class="mb-4">
+Nos inspira la cocina callejera y el sabor casero.
+</p>
+
+</div>
+
+<div class="column is-half">
+<figure class="image">
+<img style="border-radius: 15px;"
+src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd">
+</figure>
+</div>
+
+</div>
+
+</div>
+</section>
+
+<section class="section has-background-light">
+<div class="container">
+
+<div class="columns">
+
+<div class="column">
+<div class="card">
+<div class="card-content">
+<h3 class="title is-3 has-text-danger">Misión</h3>
+<p>
+Brindar hamburguesas de alta calidad con servicio cercano.
+</p>
+</div>
+</div>
+</div>
+
+<div class="column">
+<div class="card">
+<div class="card-content">
+<h3 class="title is-3 has-text-danger">Visión</h3>
+<p>
+Ser una referencia gastronómica reconocida por nuestro sabor.
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
+</section>
+
+<section class="section">
+<div class="container">
+
+<h2 class="title has-text-centered is-2 mb-6">
+Nuestros Valores
+</h2>
+
+<div class="columns is-multiline">
+
+<div class="column is-one-third">
+<div class="box has-text-centered">
+<h3 class="title is-4">Calidad</h3>
+<p>Ingredientes frescos y premium.</p>
+</div>
+</div>
+
+<div class="column is-one-third">
+<div class="box has-text-centered">
+<h3 class="title is-4">Pasión</h3>
+<p>Cocinamos con dedicación.</p>
+</div>
+</div>
+
+<div class="column is-one-third">
+<div class="box has-text-centered">
+<h3 class="title is-4">Compromiso</h3>
+<p>Mejor atención al cliente.</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</section>
+
+<section class="section has-background-dark has-text-centered">
+<div class="container">
+
+<h2 class="title has-text-white">¿Quieres visitarnos?</h2>
+
+<button class="button button-custom" onclick="mensaje()">
+Reservar ahora
+</button>
+
+</div>
+</section>
+
+<footer class="footer has-background-dark has-text-white">
+<div class="content has-text-centered">
+<p>
+<strong class="has-text-white">Burger House</strong><br>
+Sabor auténtico en cada mordida 🍔
+</p>
+</div>
+</footer>
+
+<script>
+function mensaje() {
+    alert("¡Gracias por tu interés! Pronto podrás reservar.");
+}
+</script>
 
 </body>
 </html>
