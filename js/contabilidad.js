@@ -1,74 +1,55 @@
-function guardarRegistro() {
+<div class="modal" id="modalRegistro">
+    <div class="modal-background" onclick="cerrarModal()"></div>
 
-    let fecha = document.getElementById("fecha").value;
-    let concepto = document.getElementById("concepto").value.trim();
-    let tipo = document.getElementById("tipo").value;
-    let valor = document.getElementById("valor").value;
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Registro Contable</p>
+            <button class="delete" aria-label="close" onclick="cerrarModal()"></button>
+        </header>
 
-    // Validaciones
-    if (fecha === "") {
-        alert("La fecha es obligatoria");
-        return;
-    }
+        <section class="modal-card-body">
+            
 
-    if (concepto.length < 3) {
-        alert("El concepto debe tener al menos 3 caracteres");
-        return;
-    }
+            <div id="alertaFormulario"></div>
 
-    if (valor === "" || isNaN(valor) || valor <= 0) {
-        alert("El valor debe ser un número mayor a 0");
-        return;
-    }
+            <div class="field">
+                <label class="label">Fecha</label>
+                <div class="control">
+                    <input>  class="input" type="date" id="fecha" </input>
+                </div>
+            </div>
 
-    valor = parseFloat(valor);
+            <div class="field">
+                <label class="label">Concepto</label>
+                <div class="control">
+                    <input> class="input" type="text" id="concepto" placeholder="Ej: Venta de almuerzo" </input>
+                </div>
+            </div>
 
-    const tabla = document.getElementById("tablaRegistros");
+            <div class="field">
+                <label class="label">Tipo</label>
+                <div class="control">
+                    <div class="select is-fullwidth">
+                        <select id="tipo">
+                            <option value="Ingreso">Ingreso</option>
+                            <option value="Egreso">Egreso</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-    let tagColor = tipo === "Ingreso"
-        ? "is-success"
-        : "is-danger";
+            <div class="field">
+                <label class="label">Valor</label>
+                <div class="control">
+                    <input> class="input" type="number" id="valor" placeholder="Ej: 15000" </input>
+                </div>
+            </div>
 
-    if (filaEditando) {
+        </section>
 
-        filaEditando.cells[0].innerText = fecha;
-        filaEditando.cells[1].innerText = concepto;
-
-        filaEditando.cells[2].innerHTML =
-            `<span class="tag ${tagColor}">
-                ${tipo}
-            </span>`;
-
-        filaEditando.cells[3].innerText = valor;
-
-    } else {
-
-        let fila = document.createElement("tr");
-
-        fila.innerHTML = `
-            <td>${fecha}</td>
-            <td>${concepto}</td>
-            <td>
-                <span class="tag ${tagColor}">
-                    ${tipo}
-                </span>
-            </td>
-            <td class="has-text-right">${valor}</td>
-            <td class="has-text-centered">
-                <button class="button is-small is-info edit-btn"
-                    onclick="editarRegistro(this)">
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button class="button is-small is-danger delete-btn"
-                    onclick="eliminarRegistro(this)">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </td>
-        `;
-
-        tabla.appendChild(fila);
-    }
-
-    actualizarTotales();
-    cerrarModal();
-}
+        <footer class="modal-card-foot">
+            <button class="button is-success" onclick="guardarRegistro()">Guardar</button>
+            <button class="button" onclick="cerrarModal()">Cancelar</button>
+        </footer>
+    </div>
+</div>

@@ -95,6 +95,10 @@
             background: #ef4444 !important;
             color: white !important;
         }
+        
+        .is-hidden {
+            display: none !important;
+        }
     </style>
 </head>
 
@@ -232,38 +236,44 @@
         </div>
     </div>
 </section>
+
 <div class="modal" id="modalRegistro">
-    <div class="modal-background"></div>
+    <div class="modal-background" onclick="cerrarModal()"></div>
 
     <div class="modal-card">
 
         <header class="modal-card-head">
             <p class="modal-card-title">Registro Contable</p>
-
             <button class="delete" aria-label="close" onclick="cerrarModal()"></button>
         </header>
 
         <section class="modal-card-body">
 
+            <!-- ALERTA DE ERROR VISUAL EN PANTALLA -->
+            <div class="notification is-danger is-light is-hidden" id="alertaError">
+                <button class="delete" onclick="ocultarAlerta()"></button>
+                <i class="fas fa-exclamation-triangle mr-2"></i>
+                <strong>Atención:</strong> Por favor completa todos los campos requeridos antes de guardar.
+            </div>
+
             <div class="field">
                 <label class="label">Fecha</label>
-
                 <div class="control">
                     <input class="input" type="date" id="fecha">
                 </div>
+                <p class="help is-danger is-hidden" id="err-fecha">Por favor selecciona una fecha.</p>
             </div>
 
             <div class="field">
                 <label class="label">Concepto</label>
-
                 <div class="control">
-                    <input class="input" type="text" id="concepto">
+                    <input class="input" type="text" id="concepto" placeholder="Ej: Venta de productos">
                 </div>
+                <p class="help is-danger is-hidden" id="err-concepto">Escribe un concepto o descripción.</p>
             </div>
 
             <div class="field">
                 <label class="label">Tipo</label>
-
                 <div class="control">
                     <div class="select is-fullwidth">
                         <select id="tipo">
@@ -276,10 +286,10 @@
 
             <div class="field">
                 <label class="label">Valor</label>
-
                 <div class="control">
-                    <input class="input" type="number" id="valor">
+                    <input class="input" type="number" id="valor" placeholder="Ej: 50000" min="1">
                 </div>
+                <p class="help is-danger is-hidden" id="err-valor">Ingresa un valor numérico válido mayor a 0.</p>
             </div>
 
         </section>
@@ -302,13 +312,25 @@
     let filaEditando = null;
 
     function abrirModal() {
+        ocultarAlerta();
         document.getElementById("modalRegistro").classList.add("is-active");
     }
 
     function cerrarModal() {
         document.getElementById("modalRegistro").classList.remove("is-active");
-
         limpiarFormulario();
+    }
+
+    function ocultarAlerta() {
+        document.getElementById("alertaError").classList.add("is-hidden");
+        
+        // Limpiar bordes rojos y textos auxiliares
+        ["fecha", "concepto", "valor"].forEach(id => {
+            const input = document.getElementById(id);
+            const msg = document.getElementById(`err-${id}`);
+            if (input) input.classList.remove("is-danger");
+            if (msg) msg.classList.add("is-hidden");
+        });
     }
 
     function limpiarFormulario() {
@@ -317,18 +339,56 @@
         document.getElementById("tipo").value = "Ingreso";
         document.getElementById("valor").value = "";
 
+        ocultarAlerta();
         filaEditando = null;
     }
 
     function guardarRegistro() {
+        const fechaInput = document.getElementById("fecha");
+        const conceptoInput = document.getElementById("concepto");
+        const tipoInput = document.getElementById("tipo");
+        const valorInput = document.getElementById("valor");
 
-        const fecha = document.getElementById("fecha").value;
-        const concepto = document.getElementById("concepto").value;
-        const tipo = document.getElementById("tipo").value;
-        const valor = document.getElementById("valor").value;
+        const fecha = fechaInput.value.trim();
+        const concepto = conceptoInput.value.trim();
+        const tipo = tipoInput.value;
+        const valor = valorInput.value.trim();
 
-        if (!fecha || !concepto || !valor) {
-            alert("Completa todos los campos");
+        let hayErrores = false;
+
+        // Validar Fecha
+        if (!fecha) {
+            fechaInput.classList.add("is-danger");
+            document.getElementById("err-fecha").classList.remove("is-hidden");
+            hayErrores = true;
+        } else {
+            fechaInput.classList.remove("is-danger");
+            document.getElementById("err-fecha").classList.add("is-hidden");
+        }
+
+        // Validar Concepto
+        if (!concepto) {
+            conceptoInput.classList.add("is-danger");
+            document.getElementById("err-concepto").classList.remove("is-hidden");
+            hayErrores = true;
+        } else {
+            conceptoInput.classList.remove("is-danger");
+            document.getElementById("err-concepto").classList.add("is-hidden");
+        }
+
+        // Validar Valor
+        if (!valor || parseFloat(valor) <= 0 || isNaN(valor)) {
+            valorInput.classList.add("is-danger");
+            document.getElementById("err-valor").classList.remove("is-hidden");
+            hayErrores = true;
+        } else {
+            valorInput.classList.remove("is-danger");
+            document.getElementById("err-valor").classList.add("is-hidden");
+        }
+
+        // Si falta algún campo, mostramos la alerta en la pantalla
+        if (hayErrores) {
+            document.getElementById("alertaError").classList.remove("is-hidden");
             return;
         }
 
@@ -388,7 +448,6 @@
         }
 
         actualizarTotales();
-
         cerrarModal();
     }
 
@@ -416,7 +475,6 @@
         if (confirm("¿Deseas eliminar este registro?")) {
 
             btn.closest("tr").remove();
-
             actualizarTotales();
         }
     }
@@ -436,10 +494,12 @@
             const valor =
                 parseFloat(fila.cells[3].innerText);
 
-            if (tipo === "Ingreso") {
-                ingresos += valor;
-            } else {
-                egresos += valor;
+            if (!isNaN(valor)) {
+                if (tipo === "Ingreso") {
+                    ingresos += valor;
+                } else {
+                    egresos += valor;
+                }
             }
         });
 
@@ -464,4 +524,3 @@
 
 </body>
 </html>
-

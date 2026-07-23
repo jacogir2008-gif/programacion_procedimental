@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Añadir Producto</title>
-.-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <!-- Se corrigió el ".-" inicial -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 </head>
 <body>
@@ -12,26 +13,31 @@
         <div class="container">
             <div class="columns is-centered">
                 <div class="column is-half">
-                   
+                    
                     <div class="box">
                         <h1 class="title has-text-centered">Añadir Nuevo Producto</h1>
                         <hr>
 
-                        <form>
+                        <!-- 1. Contenedor para mostrar la alerta en pantalla -->
+                        <div id="alertaFormulario"></div>
+
+                        <!-- 2. Formulario con event.preventDefault() para no recargar la página -->
+                        <form id="formProducto" onsubmit="event.preventDefault(); guardarProducto();">
+                            
                             <div class="field">
                                 <label class="label">Código del Producto</label>
                                 <div class="control has-icons-left">
-                                    <input class="input" type="text" placeholder="Ej: PROD-123">
+                                    <input class="input" type="text" id="codigo" placeholder="Ej: PROD-123">
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-barcode"></i>
                                     </span>
                                 </div>
                             </div>
 
-                             <div class="field">
+                            <div class="field">
                                 <label class="label">Nombre del Producto</label>
                                 <div class="control">
-                                    <input class="input" type="text" placeholder="Ej: Laptop Gaming">
+                                    <input class="input" type="text" id="nombre" placeholder="Ej: Laptop Gaming">
                                 </div>
                             </div>
 
@@ -40,7 +46,7 @@
                                     <div class="field">
                                         <label class="label">Cantidad</label>
                                         <div class="control">
-                                            <input class="input" type="number" placeholder="0" min="0">
+                                            <input class="input" type="number" id="cantidad" placeholder="0" min="0">
                                         </div>
                                     </div>
                                 </div>
@@ -49,12 +55,12 @@
                                     <div class="field">
                                         <label class="label">Marca</label>
                                         <div class="control">
-                                            <div class="select is-fullwidth">
-                                                <select>
-                                                    <option>Selecciona una marca</option>
-                                                    <option>Marca A</option>
-                                                    <option>Marca B</option>
-                                                    <option>Marca C</option>
+                                            <div class="select is-fullwidth" id="selectMarcaControl">
+                                                <select id="marca">
+                                                    <option value="">Selecciona una marca</option>
+                                                    <option value="Marca A">Marca A</option>
+                                                    <option value="Marca B">Marca B</option>
+                                                    <option value="Marca C">Marca C</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -64,18 +70,18 @@
 
                             <hr>
 
-                           
                             <div class="field is-grouped is-grouped-centered">
                                 <div class="control">
-                                    <button class="button is-link">
+                                    <button type="submit" class="button is-link">
                                         <span class="icon"><i class="fas fa-save"></i></span>
                                         <span>Guardar Producto</span>
                                     </button>
                                 </div>
                                 <div class="control">
-                                    <button class="button is-link is-light">Cancelar</button>
+                                    <button type="button" class="button is-link is-light" onclick="limpiarFormulario()">Cancelar</button>
                                 </div>
                             </div>
+
                         </form>
 
                     </div>
@@ -83,5 +89,79 @@
             </div>
         </div>
     </section>
+
+    <!-- Script de validaciones -->
+    <script>
+        function guardarProducto() {
+            // Referencias a los campos
+            const codigoInput = document.getElementById('codigo');
+            const nombreInput = document.getElementById('nombre');
+            const cantidadInput = document.getElementById('cantidad');
+            const marcaSelect = document.getElementById('marca');
+            const alertaDiv = document.getElementById('alertaFormulario');
+
+            // Valores sin espacios adicionales
+            const codigo = codigoInput.value.trim();
+            const nombre = nombreInput.value.trim();
+            const cantidad = cantidadInput.value.trim();
+            const marca = marcaSelect.value;
+
+            // Limpiar errores visuales anteriores
+            [codigoInput, nombreInput, cantidadInput].forEach(input => input.classList.remove('is-danger'));
+            document.getElementById('selectMarcaControl').classList.remove('is-danger');
+            alertaDiv.innerHTML = '';
+
+            let camposFaltantes = [];
+
+            // Validación campo por campo
+            if (!codigo) {
+                camposFaltantes.push('Código del Producto');
+                codigoInput.classList.add('is-danger');
+            }
+            if (!nombre) {
+                camposFaltantes.push('Nombre del Producto');
+                nombreInput.classList.add('is-danger');
+            }
+            if (!cantidad) {
+                camposFaltantes.push('Cantidad');
+                cantidadInput.classList.add('is-danger');
+            }
+            if (!marca) {
+                camposFaltantes.push('Marca');
+                document.getElementById('selectMarcaControl').classList.add('is-danger');
+            }
+
+            // Si falta algún campo, mostrar la alerta
+            if (camposFaltantes.length > 0) {
+                alertaDiv.innerHTML = `
+                    <div class="notification is-danger is-light">
+                        <button class="delete" onclick="this.parentElement.remove()"></button>
+                        <strong>¡Atención!</strong> Debes llenar los siguientes campos:
+                        <ul style="margin-top: 5px; margin-left: 15px;">
+                            ${camposFaltantes.map(campo => `<li>• ${campo}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+                return;
+            }
+
+            // Si todo está lleno correctamente
+            alertaDiv.innerHTML = `
+                <div class="notification is-success is-light">
+                    <button class="delete" onclick="this.parentElement.remove()"></button>
+                    <strong>¡Éxito!</strong> El producto <b>${nombre}</b> ha sido guardado correctamente.
+                </div>
+            `;
+        }
+
+        function limpiarFormulario() {
+            document.getElementById('formProducto').reset();
+            document.getElementById('alertaFormulario').innerHTML = '';
+            ['codigo', 'nombre', 'cantidad'].forEach(id => {
+                document.getElementById(id).classList.remove('is-danger');
+            });
+            document.getElementById('selectMarcaControl').classList.remove('is-danger');
+        }
+    </script>
 </body>
 </html>

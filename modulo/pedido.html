@@ -11,6 +11,7 @@
         .sticky-cart { position: sticky; top: 20px; border-top: 5px solid #ffdd57; }
         .price { color: #d32f2f; font-weight: bold; font-size: 1.1rem; display: block; margin-bottom: 5px; }
         .card { height: 100%; display: flex; flex-direction: column; }
+        .is-hidden { display: none !important; }
     </style>
 </head>
 
@@ -22,6 +23,7 @@
             <p class="subtitle has-text-centered mb-6">Elige tu favorita y pídela por WhatsApp</p>
 
             <div class="columns">
+                <!-- COLUMNA DE PRODUCTOS -->
                 <div class="column is-8">
                     <div class="columns is-multiline">
 
@@ -108,17 +110,48 @@
                     </div>
                 </div>
 
+                <!-- COLUMNA DEL CARRITO Y FORMULARIO -->
                 <div class="column is-4">
                     <div class="box sticky-cart">
                         <h2 class="subtitle is-4">🛒 Mi Pedido</h2>
+                        
+                        <!-- ALERTA EN PANTALLA -->
+                        <div id="alerta-error" class="notification is-danger is-light is-small is-hidden mb-3">
+                            <button class="delete" onclick="ocultarAlerta()"></button>
+                            <span id="mensaje-error">Por favor completa todos los campos del pedido.</span>
+                        </div>
+
                         <div id="lista-pedido" class="content">
                             <p class="has-text-grey">No has agregado productos</p>
                         </div>
+                        
                         <hr>
+
+                        <!-- DATOS DE ENTREGA -->
+                        <h3 class="subtitle is-6 mb-2">Datos de Entrega:</h3>
+                        <div class="field">
+                            <div class="control">
+                                <input class="input is-small" type="text" id="cliente-nombre" placeholder="Tu nombre completo *">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <input class="input is-small" type="text" id="cliente-direccion" placeholder="Dirección de entrega *">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <input class="input is-small" type="tel" id="cliente-telefono" placeholder="Número de teléfono *">
+                            </div>
+                        </div>
+
+                        <hr>
+
                         <div class="is-flex is-justify-content-space-between mb-4">
                             <span class="is-size-5">Total:</span>
                             <span class="is-size-5 has-text-weight-bold" id="total-final">$0</span>
                         </div>
+                        
                         <button class="button is-success is-fullwidth is-medium" onclick="finalizarPedido()">
                             Confirmar por WhatsApp
                         </button>
@@ -133,7 +166,6 @@
         let pedido = [];
         let total = 0;
 
-  
         function formatearMoneda(valor) {
             return new Intl.NumberFormat('es-CO', {
                 style: 'currency',
@@ -146,6 +178,7 @@
             pedido.push({ nombre, precio });
             total += precio;
             actualizarInterfaz();
+            ocultarAlerta();
         }
 
         function actualizarInterfaz() {
@@ -168,20 +201,51 @@
             totalTxt.innerText = formatearMoneda(total);
         }
 
+        function mostrarAlerta(mensaje) {
+            const alerta = document.getElementById('alerta-error');
+            const mensajeTxt = document.getElementById('mensaje-error');
+            mensajeTxt.innerText = mensaje;
+            alerta.classList.remove('is-hidden');
+        }
+
+        function ocultarAlerta() {
+            const alerta = document.getElementById('alerta-error');
+            alerta.classList.add('is-hidden');
+        }
+
         function finalizarPedido() {
+            const nombre = document.getElementById('cliente-nombre').value.trim();
+            const direccion = document.getElementById('cliente-direccion').value.trim();
+            const telefono = document.getElementById('cliente-telefono').value.trim();
+
+            // 1. Validar si hay productos en el carrito
             if (pedido.length === 0) {
-                alert("Agrega una salchipapa antes de finalizar.");
+                mostrarAlerta("⚠️ Agrega al menos una salchipapa antes de continuar.");
                 return;
             }
 
+            // 2. Validar que los datos del cliente estén completos
+            if (nombre === "" || direccion === "" || telefono === "") {
+                mostrarAlerta("⚠️ Por favor completa tu nombre, dirección y teléfono para el envío.");
+                return;
+            }
+
+            // Si todo está bien, ocultar alertas y armar el mensaje de WhatsApp
+            ocultarAlerta();
+
             let mensaje = " *NUEVO PEDIDO - SALCHIPAPA WARRIOR*\n\n";
+            mensaje += `👤 *Cliente:* ${nombre}\n`;
+            mensaje += `📍 *Dirección:* ${direccion}\n`;
+            mensaje += `📞 *Teléfono:* ${telefono}\n\n`;
+            mensaje += "🛒 *Detalle del pedido:*\n";
+
             pedido.forEach(item => {
                 mensaje += `• ${item.nombre}: ${formatearMoneda(item.precio)}\n`;
             });
-            mensaje += `\n *TOTAL: ${formatearMoneda(total)}*`;
+
+            mensaje += `\n💰 *TOTAL: ${formatearMoneda(total)}*`;
 
             const encodedMessage = encodeURIComponent(mensaje);
-            
             window.open(`https://wa.me/573000000000?text=${encodedMessage}`);
         }
     </script>

@@ -1,114 +1,180 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
-    <title>Usuario</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+    <title>Formulario Usuario</title>
 </head>
-<body>
-    <div class="field">
-  <label class="label">Nombre</label>
-  <div class="control">
-    <input class="input" id="nombre"
-     type="text" placeholder="Ingresar dato">
-  </div>
-</div>
+<body class="p-5">
 
- <div class="field">
-  <label class="label">Apellido</label>
-  <div class="control">
-    <input class="input" type="text" placeholder="Ingresar dato">
-  </div>
-</div>
+    <div class="container" style="max-width: 600px;">
+        <!-- Contenedor para mostrar la alerta en pantalla -->
+        <div id="alerta" class="notification is-danger is-hidden mb-4">
+            <button class="delete" onclick="ocultarAlerta()"></button>
+            <span id="mensajeAlerta">Por favor, completa todos los campos marcados.</span>
+        </div>
 
- <div class="field">
-  <label class="label">Tipo de documento</label>
-  <div class="control">
-    <input class="input" type="tex0.......................................................................................................................................................................................................................................................................................................
-    .....
-    
-    t" placeholder="Ingresar dato">
-  </div>
-</div>
+        <form id="formularioUsuario">
+            <div class="field">
+                <label class="label">Nombre</label>
+                <div class="control">
+                    <input class="input" id="nombre" type="text" placeholder="Ingresar dato">
+                </div>
+            </div>
 
- <div class="field">
-  <label class="label">Número de documento</label>
-  <div class="control">
-    <input class="input" type="text" placeholder="Ingresar dato">
-  </div>
-</div>
+            <div class="field">
+                <label class="label">Apellido</label>
+                <div class="control">
+                    <input class="input" id="apellido" type="text" placeholder="Ingresar dato">
+                </div>
+            </div>
 
- <div class="field">
-  <label class="label">Telefono</label>
-  <div class="control">
-    <input class="input" type="text" placeholder="Ingresar dato">
-  </div>
-</div>
+            <div class="field">
+                <label class="label">Tipo de documento</label>
+                <div class="control">
+                    <input class="input" id="tipoDocumento" type="text" placeholder="Ingresar dato">
+                </div>
+            </div>
 
- <div class="field">
-  <label class="label">Correo electronico</label>
-  <div class="control">
-    <input class="input" type="text" placeholder="Ingresar dato">
-  </div>
-</div>
+            <div class="field">
+                <label class="label">Número de documento</label>
+                <div class="control">
+                    <input class="input" id="numeroDocumento" type="text" placeholder="Ingresar dato">
+                </div>
+            </div>
 
- <div class="field">
-  <label class="label">Genero</label>
-  <div class="control">
-    <input class="input" type="text" placeholder="Ingresar dato">
-  </div>
-</div>
+            <div class="field">
+                <label class="label">Teléfono</label>
+                <div class="control">
+                    <input class="input" id="telefono" type="text" placeholder="Ingresar dato">
+                </div>
+            </div>
 
- <div class="field">
-  <label class="label">Fecha de nacimiento</label>
-  <div class="control">
-    <input class="input" type="text" placeholder="Ingresar dato">
-  </div>
-</div>
+            <div class="field">
+                <label class="label">Correo electrónico</label>
+                <div class="control">
+                    <input class="input" id="correo" type="email" placeholder="Ingresar dato">
+                </div>
+            </div>
 
-<div class="field">
-  <label class="label">Message</label>
-  <div class="control">
-    <textarea class="textarea" placeholder="Textarea"></textarea>
-  </div>
-</div>
+            <div class="field">
+                <label class="label">Género</label>
+                <div class="control">
+                    <input class="input" id="genero" type="text" placeholder="Ingresar dato">
+                </div>
+            </div>
 
-<div class="field">
-  <div class="control">
-    <label class="checkbox">
-      <input type="checkbox">
-      I agree to the <a href="#">terms and conditions</a>
-    </label>
-  </div>
-</div>
+            <div class="field">
+                <label class="label">Fecha de nacimiento</label>
+                <div class="control">
+                    <input class="input" id="fechaNacimiento" type="date">
+                </div>
+            </div>
 
-<div class="field">
-  <div class="control">
-    <label class="radio">
-      <input type="radio" name="question">
-      Yes
-    </label>
-    <label class="radio">
-      <input type="radio" name="question">
-      No
-    </label>
-  </div>
-</div>
+            <div class="field">
+                <label class="label">Mensaje</label>
+                <div class="control">
+                    <textarea class="textarea" id="mensaje" placeholder="Escribe un mensaje..."></textarea>
+                </div>
+            </div>
 
-<div class="field is-grouped">
-  <div class="control">
-    <button class="button is-link">Submit</button>
-  </div>
-  <div class="control">
-    <button class="button is-link is-light">Cancel</button>
-  </div>
-</div>
+            <div class="field">
+                <div class="control">
+                    <label class="checkbox">
+                        <input type="checkbox" id="terminos">
+                        Acepto los <a href="#">términos y condiciones</a>
+                    </label>
+                </div>
+            </div>
 
+            <div class="field">
+                <div class="control">
+                    <label class="radio">
+                        <input type="radio" name="confirmacion" value="Si">
+                        Sí
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="confirmacion" value="No">
+                        No
+                    </label>
+                </div>
+            </div>
 
+            <div class="field is-grouped mt-5">
+                <div class="control">
+                    <button type="button" class="button is-link" id="btnGuardar">Guardar</button>
+                </div>
+                <div class="control">
+                    <button type="reset" class="button is-link is-light" onclick="ocultarAlerta()">Cancelar</button>
+                </div>
+            </div>
+        </form>
+    </div>
 
+    <!-- Script de Validación -->
+    <script>
+        const btnGuardar = document.getElementById('btnGuardar');
+        const alerta = document.getElementById('alerta');
+        const mensajeAlerta = document.getElementById('mensajeAlerta');
 
+        function ocultarAlerta() {
+            alerta.classList.add('is-hidden');
+        }
 
+        btnGuardar.addEventListener('click', function () {
+            // Lista de campos de texto a validar
+            const campos = [
+                { id: 'nombre', nombre: 'Nombre' },
+                { id: 'apellido', nombre: 'Apellido' },
+                { id: 'tipoDocumento', nombre: 'Tipo de documento' },
+                { id: 'numeroDocumento', nombre: 'Número de documento' },
+                { id: 'telefono', nombre: 'Teléfono' },
+                { id: 'correo', nombre: 'Correo electrónico' },
+                { id: 'genero', nombre: 'Género' },
+                { id: 'fechaNacimiento', nombre: 'Fecha de nacimiento' },
+                { id: 'mensaje', nombre: 'Mensaje' }
+            ];
+
+            let errores = [];
+
+            // 1. Limpiar bordes rojos previos
+            document.querySelectorAll('.input, .textarea').forEach(el => {
+                el.classList.remove('is-danger');
+            });
+
+            // 2. Verificar inputs de texto
+            campos.forEach(campo => {
+                const elemento = document.getElementById(campo.id);
+                if (!elemento.value.trim()) {
+                    errores.push(campo.nombre);
+                    elemento.classList.add('is-danger'); // Pone el borde del input en rojo
+                }
+            });
+
+            // 3. Verificar Checkbox de términos
+            const terminos = document.getElementById('terminos');
+            if (!terminos.checked) {
+                errores.push('Términos y condiciones');
+            }
+
+            // 4. Verificar Selección Radio (Sí / No)
+            const radioSeleccionado = document.querySelector('input[name="confirmacion"]:checked');
+            if (!radioSeleccionado) {
+                errores.push('Seleccionar Sí o No');
+            }
+
+            // 5. Mostrar alerta en pantalla o proceder
+            if (errores.length > 0) {
+                mensajeAlerta.innerHTML = `<strong>¡Atención!</strong> Debes completar los siguientes campos: <br> • ${errores.join('<br> • ')}`;
+                alerta.classList.remove('is-danger', 'is-success', 'is-hidden');
+                alerta.classList.add('is-danger');
+            } else {
+                mensajeAlerta.innerHTML = `<strong>¡Éxito!</strong> Todos los datos han sido ingresados correctamente.`;
+                alerta.classList.remove('is-danger', 'is-hidden');
+                alerta.classList.add('is-success');
+            }
+        });
+    </script>
 </body>
 </html>
